@@ -1,0 +1,243 @@
+/* Contenedor general */
+.mascotas-container {
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 20px;
+  animation: fadeIn 0.5s ease-in-out;
+  font-family: 'Poppins', sans-serif;
+  color: #2b2b2b;
+}
+
+/* ------- TARJETA CREAR MASCOTA ------- */
+.crear-mascota-card {
+  background: linear-gradient(145deg, #ffffff, #f0f4ff);
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.crear-mascota-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.crear-mascota-card h2 {
+  margin-bottom: 20px;
+  color: #396cd8;
+  font-weight: 700;
+  text-align: center;
+  font-size: 24px;
+}
+
+.form-mascota {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-mascota input {
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid #cfd6e4;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+
+.form-mascota input:focus {
+  border-color: #396cd8;
+  outline: none;
+  box-shadow: 0 0 12px rgba(57,108,216,0.25);
+}
+
+.form-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.form-mascota button {
+  background: linear-gradient(135deg, #396cd8, #5a85f2);
+  color: #fff;
+  padding: 14px 25px;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.form-mascota button:hover {
+  background: linear-gradient(135deg, #2b59b2, #3f72d6);
+  transform: translateY(-2px);
+}
+
+/* ------- TARJETA LISTA MASCOTAS ------- */
+.lista-mascotas-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.lista-mascotas-card h2 {
+  color: #2e457c;
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 22px;
+}
+
+/* ------- GRID DE MASCOTAS ------- */
+.mascotas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+/* Tarjeta por mascota */
+.mascota-card {
+  background: linear-gradient(135deg, #f7f9ff, #e8f0ff);
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid #dde4ff;
+  box-shadow: 0 6px 18px rgba(109, 135, 255, 0.15);
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+}
+
+.mascota-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(109, 135, 255, 0.25);
+}
+
+/* Icono de mascota */
+.mascota-icon {
+  font-size: 42px;
+  background: #ffffff88;
+  padding: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* Información mascota */
+.mascota-info h3 {
+  margin: 0 0 5px 0;
+  color: #324a88;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.mascota-info p {
+  margin: 3px 0;
+  font-size: 14px;
+  color: #556b9a;
+}
+
+/* Acciones editar/eliminar */
+.mascota-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.mascota-actions button {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+  flex: 1; /* hace que los botones ocupen espacio equilibrado */
+  text-align: center;
+}
+
+.mascota-actions button:hover {
+  transform: translateY(-2px);
+}
+
+.mascota-actions button:first-child {
+  background: #f4f4f4;
+  color: #396cd8;
+}
+
+.mascota-actions button:first-child:hover {
+  background: #e2e8ff;
+}
+
+.mascota-actions button:last-child {
+  background: #ffdce0;
+  color: #d53f4f;
+}
+
+.mascota-actions button:last-child:hover {
+  background: #ffb3b9;
+}
+
+/* Cuando no hay mascotas */
+.sin-mascotas {
+  text-align: center;
+  padding: 25px;
+  color: #777;
+  font-size: 16px;
+}
+
+/* --- Animación entrada suave --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tarjeta por mascota */
+.mascota-card {
+  background: linear-gradient(135deg, #f7f9ff, #e8f0ff);
+  padding: 15px; /* Reducido de 20px a 15px */
+  border-radius: 16px; /* Más compacta */
+  border: 1px solid #dde4ff;
+  box-shadow: 0 4px 12px rgba(109, 135, 255, 0.15); /* Ligero */
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px; /* Menor separación interna */
+  position: relative;
+  min-height: 120px; /* Opcional: altura mínima más baja */
+}
+
+/* Icono de mascota */
+.mascota-icon {
+  font-size: 36px; /* Más pequeño */
+  padding: 8px;    /* Menos padding */
+  margin-bottom: 8px; /* Menor margen */
+}
+
+/* Información mascota */
+.mascota-info h3 {
+  font-size: 16px; /* Más pequeño */
+}
+
+.mascota-info p {
+  font-size: 13px; /* Más pequeño */
+  margin: 2px 0;
+}
+
+/* Acciones editar/eliminar */
+.mascota-actions {
+  gap: 6px; /* Menor separación entre botones */
+}
+
+.mascota-actions button {
+  padding: 6px 10px; /* Más pequeño */
+  font-size: 13px; /* Ajuste de tamaño */
+}

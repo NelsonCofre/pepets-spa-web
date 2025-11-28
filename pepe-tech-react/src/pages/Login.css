@@ -1,0 +1,74 @@
+/* Login.css */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0288d1, #f7d1a1);
+    height: 100vh;
+}
+
+.login-container {
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.login-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    width: 350px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.login-box h2 {
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: 600;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.input-group input:focus {
+    border-color: #0288d1;
+    box-shadow: 0 0 8px rgba(247,161,161,0.3);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #0288d1;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: #0288d1;
+    transform: translateY(-2px);
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

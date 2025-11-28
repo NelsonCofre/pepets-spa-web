@@ -1,0 +1,41 @@
+/* ====== RESETEO ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ====== CONTENEDOR GENERAL ====== */
+html, body, #root {
+  height: 100%;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+background: linear-gradient(180deg, #b8e7f0 0%, #ffe7c5 100%);
+
+}
+
+/* Contenido principal */
+.app-content {
+  flex: 1;
+  padding-bottom: 2rem;
+}
+
+/* ====== TARJETAS GENERALES ====== */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* ====== TITULOS ====== */
+.section-title {
+  color: #0288d1;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}

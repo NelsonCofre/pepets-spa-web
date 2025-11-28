@@ -1,0 +1,133 @@
+/* === CONTENEDOR GENERAL === */
+.crear-cita-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 15px;
+    font-family: 'Poppins', sans-serif;
+    color: #2b2b2b;
+    background: #f7f9ff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    animation: fadeIn 0.3s ease;
+}
+
+.crear-cita-container h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #0288d1;
+    margin-bottom: 20px;
+}
+
+/* === RESUMEN DEL SERVICIO === */
+.resumen-servicio {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.resumen-servicio img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.resumen-servicio h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.resumen-servicio p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 3px 0;
+}
+
+/* === FORMULARIO === */
+.form-cita {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #444;
+}
+
+/* Inputs y select */
+select,
+input[type="date"],
+input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #cfd6e4;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+select:focus,
+input:focus {
+    border-color: #0288d1;
+    outline: none;
+}
+
+/* === Wrappers para picker con iconos === */
+.input-fecha-wrapper,
+.input-hora-wrapper {
+    position: relative;
+}
+
+.input-fecha-wrapper input,
+.input-hora-wrapper input {
+    width: 100%;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+.input-fecha-wrapper .icon-calendar,
+.input-hora-wrapper .icon-clock {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 16px;
+}
+
+/* === BOTÓN CONFIRMAR === */
+.btn-confirmar {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #396cd8, #5a85f2);
+    color: #fff;
+    transition: all 0.3s;
+}
+
+.btn-confirmar:hover {
+    background: linear-gradient(135deg, #2b59b2, #3f72d6);
+}
+
+.btn-confirmar:active {
+    transform: scale(0.97);
+}
+
+/* === ANIMACIÓN === */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
