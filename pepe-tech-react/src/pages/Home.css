@@ -1,0 +1,113 @@
+/* --- General --- */
+.home-page {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+/* --- HERO --- */
+.hero {
+    background: linear-gradient(135deg, #b3e5fc, #81d4fa);
+    text-align: center;
+    padding: 5rem 2rem;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.hero h1 {
+    color: #01579b;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: #0277bd;
+}
+
+.btn-hero {
+    margin-top: 2rem;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    background-color: #0288d1;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+}
+
+.btn-hero:hover {
+    background-color: #03a9f4;
+}
+
+/* --- HISTORIA --- */
+.historia {
+    display: flex;
+    justify-content: center;
+    padding: 4rem 1rem;
+}
+
+.historia-card {
+    background-color: #ffffff;
+    padding: 3rem;
+    border-radius: 15px;
+    max-width: 800px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.historia-card h2 {
+    font-size: 2rem;
+    color: #0288d1;
+    margin-bottom: 1rem;
+}
+
+.historia-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* --- SERVICIOS HOME --- */
+.servicios-home {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.serv-home-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.serv-home-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+}
+
+.serv-home-card .icono {
+    margin-bottom: 1rem;
+    color: #0288d1;
+}
+
+.serv-home-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: #01579b;
+}
+
+.serv-home-card p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}

@@ -1,21 +1,37 @@
 /* === CONTENEDOR GENERAL === */
 .crear-cita-container {
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 15px;
+    max-width: 480px;
+    margin: 30px auto;
+    padding: 20px 22px;
     font-family: 'Poppins', sans-serif;
     color: #2b2b2b;
-    background: #f7f9ff;
-    border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    animation: fadeIn 0.3s ease;
+
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.10);
+
+    animation: fadeIn 0.35s ease;
 }
 
+/* === TÍTULO === */
 .crear-cita-container h2 {
     text-align: center;
-    font-size: 1.8rem;
-    color: #0288d1;
-    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1d4ed8;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.crear-cita-container h2::after {
+    content: "";
+    width: 120px;
+    height: 5px;
+    background: linear-gradient(90deg, #1d4ed8, #3b82f6);
+    display: block;
+    margin: 8px auto 0;
+    border-radius: 8px;
 }
 
 /* === RESUMEN DEL SERVICIO === */
@@ -23,65 +39,65 @@
     display: flex;
     gap: 15px;
     align-items: center;
-    margin-bottom: 20px;
+
     padding: 15px;
     border-radius: 16px;
-    background: #ffffff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    background: #f3f7ff;
+    border: 1px solid #e2e8f0;
 }
 
 .resumen-servicio img {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
+    border-radius: 14px;
     object-fit: cover;
-    border-radius: 12px;
 }
 
 .resumen-servicio h3 {
-    font-size: 1.2rem;
-    color: #333;
-    margin: 0 0 5px 0;
+    font-size: 1.15rem;
+    margin: 0 0 4px 0;
 }
 
 .resumen-servicio p {
     font-size: 0.9rem;
-    color: #555;
-    margin: 3px 0;
+    margin: 1px 0;
+    color: #444;
 }
 
 /* === FORMULARIO === */
 .form-cita {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
 label {
-    font-size: 0.95rem;
     font-weight: 600;
-    color: #444;
+    color: #333;
+    font-size: 0.95rem;
 }
 
-/* Inputs y select */
+/* Inputs */
 select,
 input[type="date"],
 input[type="time"] {
     width: 100%;
     padding: 10px;
-    font-size: 14px;
-    border-radius: 10px;
-    border: 1px solid #cfd6e4;
-    box-sizing: border-box;
-    cursor: pointer;
+    font-size: 15px;
+    border-radius: 12px;
+    background: #f9fbff;
+    border: 1px solid #d7e0ef;
+    transition: 0.2s;
 }
 
 select:focus,
 input:focus {
-    border-color: #0288d1;
+    border-color: #3b82f6;
     outline: none;
 }
 
-/* === Wrappers para picker con iconos === */
+/* Wrappers */
 .input-fecha-wrapper,
 .input-hora-wrapper {
     position: relative;
@@ -89,45 +105,82 @@ input:focus {
 
 .input-fecha-wrapper input,
 .input-hora-wrapper input {
-    width: 100%;
-    padding-right: 30px;
-    cursor: pointer;
+    padding-right: 35px;
 }
 
 .input-fecha-wrapper .icon-calendar,
 .input-hora-wrapper .icon-clock {
     position: absolute;
-    right: 10px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 /* === BOTÓN CONFIRMAR === */
 .btn-confirmar {
-    width: 100%;
-    padding: 10px;
-    font-size: 15px;
-    font-weight: 600;
+    padding: 12px;
     border: none;
+    width: 100%;
     border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    background: linear-gradient(135deg, #396cd8, #5a85f2);
-    color: #fff;
-    transition: all 0.3s;
+
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    transition: 0.3s;
 }
 
 .btn-confirmar:hover {
-    background: linear-gradient(135deg, #2b59b2, #3f72d6);
+    background: linear-gradient(135deg, #1e4fd1, #2563eb);
 }
 
 .btn-confirmar:active {
     transform: scale(0.97);
 }
 
+/* === RESPONSIVE === */
+@media (max-width: 480px) {
+    .crear-cita-container {
+        margin: 15px;
+        padding: 18px;
+        border-radius: 16px;
+    }
+
+    .resumen-servicio {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .resumen-servicio img {
+        width: 100%;
+        max-width: 180px;
+        height: 120px;
+    }
+}
+
 /* === ANIMACIÓN === */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+
+.btn-volver {
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: all 0.2s;
+}
+
+.btn-volver:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
 }

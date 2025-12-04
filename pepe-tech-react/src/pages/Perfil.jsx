@@ -1,44 +1,95 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
+import "./Perfil.css";
 
 function Perfil() {
-  const [usuario, setUsuario] = useState({
-    nombre: "Usuario Pepets",
-    email: "usuario@ejemplo.com",
-    password: "123456",
-  });
+  const [cliente, setCliente] = useState(null);
+  const [nuevaPassword, setNuevaPassword] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  const API_CLIENTES = "http://localhost:8081/api/clientes";
 
   useEffect(() => {
-    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
-    if (usuarioGuardado) setUsuario(usuarioGuardado);
+    const token = JSON.parse(localStorage.getItem("user"));
+    if (!token || !token.id) {
+      console.error("No hay usuario en localStorage");
+      setLoading(false);
+      return;
+    }
+
+    const fetchCliente = async () => {
+      try {
+        const res = await axios.get(`${API_CLIENTES}/${token.id}`);
+        setCliente(res.data);
+      } catch (error) {
+        console.error("Error al obtener cliente", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCliente();
   }, []);
 
-  const handleChange = (e) => setUsuario({ ...usuario, [e.target.name]: e.target.value });
+  const actualizarPassword = async () => {
+    if (!nuevaPassword.trim()) {
+      alert("La contraseña no puede estar vacía ❌");
+      return;
+    }
 
-  const guardarCambios = () => {
-    localStorage.setItem("usuario", JSON.stringify(usuario));
-    alert("Perfil actualizado ✅");
+    try {
+      const body = {
+        nombre: cliente.nombre, // obligatorio
+        email: cliente.email,   // obligatorio
+        password: nuevaPassword // solo cambia la contraseña
+      };
+
+      const res = await axios.put(`${API_CLIENTES}/${cliente.id}`, body);
+
+      alert("Contraseña actualizada ✔️");
+      setCliente(res.data);
+      setNuevaPassword("");
+
+    } catch (error) {
+      alert("No se pudo actualizar ❌");
+      console.error(error);
+    }
   };
+
+  if (loading) return <p className="loading">Cargando perfil...</p>;
+  if (!cliente) return <p className="error">No se pudo cargar el perfil</p>;
 
   return (
     <div className="perfil-container">
       <div className="perfil-card">
-        <h2>Perfil del Usuario</h2>
-        <p>Aquí puedes ver y editar la información de tu cuenta 🧑‍💻</p>
 
-        <div className="perfil-inputs">
-          <label>Nombre:</label>
-          <input type="text" name="nombre" value={usuario.nombre} onChange={handleChange} />
+        <img
+          className="perfil-img"
+          src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
+          alt="avatar"
+        />
 
-          <label>Email:</label>
-          <input type="email" name="email" value={usuario.email} onChange={handleChange} />
+        <h2 className="perfil-titulo">Mi Perfil</h2>
 
-          <label>Contraseña:</label>
-          <input type="password" name="password" value={usuario.password} onChange={handleChange} />
+        <div className="perfil-info">
+          <p><strong>Nombre:</strong> {cliente.nombre}</p>
+          <p><strong>Email:</strong> {cliente.email}</p>
         </div>
 
-        <button className="perfil-btn" onClick={guardarCambios}>
-          Guardar Cambios
+        <div className="perfil-inputs">
+          <label>Nueva contraseña:</label>
+          <input
+            type="password"
+            placeholder="Escribe una nueva contraseña"
+            value={nuevaPassword}
+            onChange={(e) => setNuevaPassword(e.target.value)}
+          />
+        </div>
+
+        <button className="perfil-btn" onClick={actualizarPassword}>
+          Guardar Contraseña
         </button>
+
       </div>
     </div>
   );

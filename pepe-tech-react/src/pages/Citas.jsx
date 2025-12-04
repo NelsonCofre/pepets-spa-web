@@ -1,96 +1,116 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import "./Citas.css";
 
-function Citas() {
+export default function Citas() {
+  const { user } = useAuth();
   const [citas, setCitas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    const citasGuardadas = JSON.parse(localStorage.getItem("citas")) || [];
-    setCitas(citasGuardadas);
-  }, []);
+  const API_CITAS = "http://localhost:8085/api/citas";
+  const API_MASCOTAS = "http://localhost:8083/api/mascotas";
+  const API_SERVICIOS = "http://localhost:8085/api/servicios";
 
-  const cancelarCita = (id) => {
-    const nuevasCitas = citas.filter((cita) => cita.id !== id);
-    localStorage.setItem("citas", JSON.stringify(nuevasCitas));
-    setCitas(nuevasCitas);
-    alert("Cita cancelada");
+  const cargarCitas = async () => {
+    try {
+      const res = await axios.get(`${API_CITAS}/cliente/${user.id}`);
+      const citasBase = res.data;
+
+      // 🟦 Cargar datos adicionales mascota + servicio + imagen
+      const citasConDatos = await Promise.all(
+        citasBase.map(async (cita) => {
+          const mascotaRes = await axios.get(`${API_MASCOTAS}/${cita.mascotaId}`);
+          const servicioRes = await axios.get(`${API_SERVICIOS}/${cita.servicioId}`);
+
+          return {
+            ...cita,
+            mascotaNombre: mascotaRes.data.nombre,
+            servicioNombre: servicioRes.data.nombre,
+            precio: servicioRes.data.precio,
+            imagenUrl: servicioRes.data.imagenUrl || "/placeholder-servicio.jpg",
+          };
+        })
+      );
+
+      setCitas(citasConDatos);
+    } catch (err) {
+      console.error(err);
+      setError("Error al cargar las citas.");
+    } finally {
+      setLoading(false);
+    }
   };
 
+  useEffect(() => {
+    if (!user) {
+      setError("No hay sesión activa.");
+      setLoading(false);
+      return;
+    }
+    cargarCitas();
+  }, [user]);
+
+  const cancelarCita = async (id) => {
+    if (!confirm("¿Seguro que deseas cancelar esta cita?")) return;
+
+    try {
+      await axios.delete(`${API_CITAS}/${id}`);
+      setCitas((prev) => prev.filter((c) => c.id !== id));
+      alert("Cita cancelada.");
+    } catch (err) {
+      alert("No se pudo cancelar la cita.");
+    }
+  };
+
+  if (loading) return <p className="citas-loading">Cargando tus citas...</p>;
+  if (error) return <p className="citas-error">{error}</p>;
+
   return (
-    <div
-      style={{
-        padding: "2rem 1rem",
-        backgroundColor: "#e0f7fa",
-        minHeight: "100vh",
-        maxWidth: "900px",
-        margin: "0 auto",
-      }}
-    >
-      <h2
-        style={{
-          color: "#0288d1",
-          marginBottom: "1.5rem",
-          textAlign: "center",
-          fontWeight: 600,
-        }}
-      >
-        Mis Citas
-      </h2>
+    <div className="citas-container">
+      <h2 className="citas-title">Mis Citas</h2>
 
       {citas.length === 0 ? (
-        <p style={{ textAlign: "center", fontSize: "1rem" }}>No tienes citas agendadas.</p>
+        <p className="citas-empty">No tienes citas agendadas.</p>
       ) : (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-            gap: "1rem",
-          }}
-        >
+        <div className="citas-grid">
           {citas.map((cita) => (
-            <div
-              key={cita.id}
-              style={{
-                borderRadius: "10px",
-                backgroundColor: "#fff",
-                padding: "0.6rem",
-                textAlign: "center",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              }}
-            >
-              <div>
-                <h4 style={{ color: "#0288d1", margin: "0.2rem 0", fontSize: "0.95rem" }}>
-                  {cita.servicio}
-                </h4>
-                <p style={{ fontSize: "0.75rem", margin: "0.1rem 0" }}>
+            <div key={cita.id} className="cita-card">
+
+              {/* --- COLUMNA IZQUIERDA: IMAGEN --- */}
+              <div className="cita-left">
+                <img
+                  src={cita.imagenUrl}
+                  alt={cita.servicioNombre}
+                  className="cita-img"
+                />
+              </div>
+
+              {/* --- COLUMNA DERECHA: INFO --- */}
+              <div className="cita-right">
+                <h4 className="cita-servicio">{cita.servicioNombre}</h4>
+
+                <p className="cita-mascota">Mascota: {cita.mascotaNombre}</p>
+
+                <p className="cita-fecha">
                   {cita.fecha} | {cita.hora}
                 </p>
+
                 {cita.precio && (
-                  <p style={{ fontSize: "0.75rem", fontWeight: 600, margin: "0.1rem 0" }}>
-                    ${cita.precio.toLocaleString("es-CL")} CLP
+                  <p className="cita-precio">
+                    ${Number(cita.precio).toLocaleString("es-CL")} CLP
                   </p>
                 )}
+
+                <button
+                  className="btn-cancelar"
+                  onClick={() => cancelarCita(cita.id)}
+                >
+                  Cancelar
+                </button>
               </div>
-              <button
-                onClick={() => cancelarCita(cita.id)}
-                style={{
-                  marginTop: "0.4rem",
-                  padding: "0.25rem 0.5rem",
-                  fontSize: "0.7rem",
-                  backgroundColor: "#d32f2f",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                  alignSelf: "center",
-                }}
-                onMouseOver={(e) => (e.target.style.backgroundColor = "#f44336")}
-                onMouseOut={(e) => (e.target.style.backgroundColor = "#d32f2f")}
-              >
-                Cancelar
-              </button>
+
             </div>
           ))}
         </div>
@@ -98,5 +118,3 @@ function Citas() {
     </div>
   );
 }
-
-export default Citas;

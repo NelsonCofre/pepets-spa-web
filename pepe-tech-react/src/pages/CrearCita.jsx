@@ -59,6 +59,13 @@ export default function CrearCita() {
 
     return (
         <div className="crear-cita-container">
+            <button 
+                className="btn-volver"
+                onClick={() => navigate("/servicios")}
+            >
+                ← Volver a Servicios
+            </button>
+
             <h2>Crear Cita</h2>
 
             <div className="resumen-servicio">
