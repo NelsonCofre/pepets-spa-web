@@ -1,77 +1,148 @@
 import { useAuth } from "../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
-import { FaBath, FaCut, FaDog } from "react-icons/fa";
+import {
+  FaBath,
+  FaCut,
+  FaDog,
+  FaStar,
+  FaHeart,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
+import { useState } from "react";
 import "./Home.css";
 
 function Home() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const handleAgendar = () => navigate("/servicios");
-
   const servicios = [
     {
-      icon: <FaBath size={50} />,
+      icon: <FaBath />,
       title: "Baños Relajantes",
-      desc: "Baños profesionales con productos hipoalergénicos y aromáticos."
+      desc: "Baños con productos hipoalergénicos y aromaterapia.",
     },
     {
-      icon: <FaCut size={50} />,
-      title: "Cortes de Pelo",
-      desc: "Estilistas expertos para un look moderno y saludable."
+      icon: <FaCut />,
+      title: "Cortes Profesionales",
+      desc: "Estilo, higiene y cuidado para cada raza.",
     },
     {
-      icon: <FaDog size={50} />,
-      title: "Alojamiento",
-      desc: "Estancias cómodas y seguras para tu compañerito."
+      icon: <FaDog />,
+      title: "Alojamiento Seguro",
+      desc: "Comodidad, vigilancia y amor garantizado.",
     },
   ];
 
-  return (
-    <div className="home-page">
+  const images = [
+    "https://images.unsplash.com/photo-1548199973-03cce0bbc87b",
+    "https://images.unsplash.com/photo-1558788353-f76d92427f16",
+    "https://images.unsplash.com/photo-1518717758536-85ae29035b6d",
+    "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb",
+  ];
 
+  const [index, setIndex] = useState(0);
+
+  const prev = () => setIndex((index - 1 + images.length) % images.length);
+  const next = () => setIndex((index + 1) % images.length);
+
+  return (
+    <div className="home">
       {/* HERO */}
       <section className="hero">
-        <h1>¡Bienvenido, {user?.username}!</h1>
-        <p>
-          En <strong>Pepets SPA</strong>, tu mascota encuentra el cuidado y cariño que merece.
-        </p>
+        <div className="hero-text">
+          <span className="hero-badge">
+            <FaStar /> Servicio Premium
+          </span>
 
-        <button className="btn-hero" onClick={handleAgendar}>
-          Reservar Ahora
-        </button>
-      </section>
+          <h1>
+            ¡Hola <span>{user?.username}</span>!
+          </h1>
 
-      {/* HISTORIA */}
-      <section className="historia">
-        <div className="historia-card">
-          <h2>Nuestra Historia</h2>
           <p>
-            Pepets SPA nació con el sueño de entregar un espacio seguro y acogedor para cada mascota.
-            Brindamos bienestar con profesionalismo y mucho amor.
+            En <strong>Pepets SPA</strong> cuidamos a tu mascota como parte de
+            nuestra familia.
           </p>
-          <p>
-            Desde baños relajantes hasta cortes especializados, nuestro equipo se encarga de ofrecer la
-            mejor experiencia posible. ¡Gracias por confiar en nosotros!
-          </p>
+
+          <div className="hero-buttons">
+            <button
+              className="btn primary"
+              onClick={() => navigate("/servicios")}
+            >
+              Reservar ahora
+            </button>
+            <button
+              className="btn secondary"
+              onClick={() => navigate("/servicios")}
+            >
+              Ver servicios
+            </button>
+          </div>
+        </div>
+
+        {/* CARRUSEL */}
+        <div className="carousel">
+          <img src={images[index]} alt="Perrito feliz" />
+
+          <button className="nav left" onClick={prev}>
+            <FaChevronLeft />
+          </button>
+          <button className="nav right" onClick={next}>
+            <FaChevronRight />
+          </button>
+
+          <div className="dots">
+            {images.map((_, i) => (
+              <span
+                key={i}
+                className={i === index ? "dot active" : "dot"}
+                onClick={() => setIndex(i)}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* SERVICIOS DESTACADOS */}
-      <section className="servicios-home">
-        {servicios.map((s, i) => (
-          <div
-            className="serv-home-card"
-            key={i}
-            onClick={() => navigate("/servicios")}
-          >
-            <div className="icono">{s.icon}</div>
-            <h3>{s.title}</h3>
-            <p>{s.desc}</p>
-          </div>
-        ))}
+      {/* VALORES */}
+      <section className="valores">
+        <div className="valor-card">
+          <FaHeart />
+          <h3>Amor</h3>
+          <p>Cuidamos a cada mascota con dedicación y respeto.</p>
+        </div>
+
+        <div className="valor-card">
+          <FaStar />
+          <h3>Calidad</h3>
+          <p>Profesionales certificados y productos premium.</p>
+        </div>
+
+        <div className="valor-card">
+          <FaDog />
+          <h3>Confianza</h3>
+          <p>Un espacio seguro para tu mejor amigo.</p>
+        </div>
       </section>
 
+      {/* SERVICIOS */}
+      <section className="servicios">
+        <h2>Servicios Destacados</h2>
+
+        <div className="servicios-grid">
+          {servicios.map((s, i) => (
+            <div
+              className="servicio-card"
+              key={i}
+              onClick={() => navigate("/servicios")}
+            >
+              <div className="icon">{s.icon}</div>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+              <span className="card-cta">Agendar →</span>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
